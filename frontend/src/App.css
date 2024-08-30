@@ -1,0 +1,9 @@
+/* Example CSS for uniform job card height */
+.job-card {
+    display: flex;          /* Ensure flex container */
+    flex-direction: column; /* Ensure column layout */
+    justify-content: space-between; /* Align items evenly */
+    height: 100%;           /* Full height to match parent */
+    min-height: 200px;      /* Set a minimum height for consistency */
+  }
+  
