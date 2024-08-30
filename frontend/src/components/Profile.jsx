@@ -19,9 +19,9 @@ console.log(user)
     <div>
       <Navbar />
       <div className='max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-8'>
-        <div className='flex justify-between'>
-          <div className='flex items-center gap-4'>
-            <Avatar className='h-24 w-24'>
+                <div className='flex justify-between'>
+                    <div className='flex items-center gap-4'>
+                        <Avatar className="h-24 w-24">
               <AvatarImage
               className='object-cover rounded-full'
                 src={user?.profile?.profilePhoto}
