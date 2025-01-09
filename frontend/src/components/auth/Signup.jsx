@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../shared/Navbar';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
@@ -12,8 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import store from '@/redux/store';
 import { setloading } from '@/redux/authSlice';
 import { Loader2 } from 'lucide-react';
-import { useEffect } from 'react';
-
 
 const Signup = () => {
     const [input, setInput] = useState({
@@ -24,16 +22,14 @@ const Signup = () => {
         role: "",
         file: ""
     });
-     const {loading , user} = useSelector(store => store.auth);
+    const { loading, user } = useSelector(store => store.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // Handle input change
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
     };
 
-    // Handle file input change
     const changeFileHandler = (e) => {
         setInput({ ...input, file: e.target.files?.[0] });
     };
@@ -41,7 +37,7 @@ const Signup = () => {
     const SubmitHandler = async (e) => {
         e.preventDefault();
     
-        const formData = new FormData(); // Note: FormData should start with uppercase F
+        const formData = new FormData();
         formData.append("fullname", input.fullname);
         formData.append("email", input.email);
         formData.append("phoneNumber", input.phonenumber);
@@ -65,25 +61,23 @@ const Signup = () => {
                 toast.success(res.data.message);
             }
         } catch (error) {
-            // Improved error handling
-            console.error("Signup error:", error); // Log the full error for debugging
+            console.error("Signup error:", error);
+        } finally {
+            dispatch(setloading(false));
         }
-             finally {
-                dispatch(setloading(false));
-
-            }
-        
     };
-    useEffect(()=>{
-        if(user){
+
+    useEffect(() => {
+        if (user) {
             navigate("/");
         }
-    })
+    }, [user, navigate]);
+
     return (
         <div>
             <Navbar />
-            <div className='flex items-center justify-center max-w-7xl mx-auto'>
-                <form onSubmit={SubmitHandler} className='w-1/2 border border-grey-200 rounded-md p-4 my-10'>
+            <div className='flex items-center justify-center max-w-full px-4 sm:px-8 lg:px-16 my-5'>
+                <form onSubmit={SubmitHandler} className='w-full sm:w-4/5 md:w-3/4 lg:w-1/2 xl:w-1/3 border border-grey-200 rounded-md p-4'>
                     <h1 className='font-bold text-xl mb-5'>Signup</h1>
 
                     <div className='my-2'>
@@ -92,9 +86,10 @@ const Signup = () => {
                             type="text"
                             value={input.fullname}
                             name="fullname"
-                            id="fullname" // Added id for accessibility
+                            id="fullname"
                             onChange={changeEventHandler}
                             placeholder="Ganesh More"
+                            className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                         />
                     </div>
 
@@ -104,9 +99,10 @@ const Signup = () => {
                             type="email"
                             value={input.email}
                             name="email"
-                            id="email" // Added id for accessibility
+                            id="email"
                             onChange={changeEventHandler}
                             placeholder="ganesh@gmail.com"
+                            className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                         />
                     </div>
 
@@ -116,9 +112,10 @@ const Signup = () => {
                             type="text"
                             value={input.phonenumber}
                             name="phonenumber"
-                            id="phonenumber" // Added id for accessibility
+                            id="phonenumber"
                             onChange={changeEventHandler}
                             placeholder="9307699110"
+                            className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                         />
                     </div>
 
@@ -128,9 +125,10 @@ const Signup = () => {
                             type="password"
                             value={input.password}
                             name="password"
-                            id="password" // Added id for accessibility
+                            id="password"
                             onChange={changeEventHandler}
                             placeholder="********"
+                            className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                         />
                     </div>
 
@@ -143,7 +141,7 @@ const Signup = () => {
                                     value="student"
                                     checked={input.role === 'student'}
                                     onChange={changeEventHandler}
-                                    id="r1" // Added id for accessibility
+                                    id="r1"
                                     className="cursor-pointer"
                                 />
                                 <Label htmlFor="r1">Student</Label>
@@ -155,7 +153,7 @@ const Signup = () => {
                                     value="Recruiter"
                                     checked={input.role === 'Recruiter'}
                                     onChange={changeEventHandler}
-                                    id="r2" // Added id for accessibility
+                                    id="r2"
                                     className="cursor-pointer"
                                 />
                                 <Label htmlFor="r2">Recruiter</Label>
@@ -167,8 +165,8 @@ const Signup = () => {
                             <Input
                                 accept="image/*"
                                 type="file"
-                                name="file" // Added name attribute
-                                id="profile" // Added id for accessibility
+                                name="file"
+                                id="profile"
                                 onChange={changeFileHandler}
                                 className="cursor-pointer"
                             />
@@ -176,8 +174,9 @@ const Signup = () => {
                     </div>
 
                     {
-                        loading ? <Button className ="w-full my-4"><Loader2 className='mr-2 h-4 w-4 animate-spin ' />Please wait</Button> : <Button type="submit" className="w-full my-4">SignUp</Button>
+                        loading ? <Button className="w-full my-4"><Loader2 className='mr-2 h-4 w-4 animate-spin ' />Please wait</Button> : <Button type="submit" className="w-full my-4">SignUp</Button>
                     }
+                    
                     <span className='text-sm'>
                         Already Have an Account? <Link to="/login" className='text-blue-600'>Login</Link>
                     </span>
