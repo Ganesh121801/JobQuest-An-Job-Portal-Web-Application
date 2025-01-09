@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { USER_API_ENDPOINT } from '@/utils/constant';
-import { toast } from 'sonner'; // Import the toast library
+import { toast } from 'sonner'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { setloading, setUser } from '@/redux/authSlice';
 import store from '@/redux/store';
@@ -21,10 +21,9 @@ const Login = () => {
     });
 
     const { loading , user} = useSelector(store => store.auth);
-
-    const navigate = useNavigate(); // Ensure you have useNavigate for redirection
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    // Handle input change
+
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
     };
@@ -34,7 +33,6 @@ const Login = () => {
 
         try {
             dispatch(setloading(true));
-            // Backend API endpoint
             const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
                 headers: {
                     "Content-Type": "application/json"
@@ -44,26 +42,28 @@ const Login = () => {
 
             if (res.data.success) {
                 dispatch(setUser(res.data.user))
-                navigate("/"); // Redirect on success
-                toast.success(res.data.message); // Show success toast
+                navigate("/"); 
+                toast.success(res.data.message); 
             }
         } catch (error) {
             console.error(error);
-            toast.error(error.response?.data?.message || "An error occurred"); // Show error toast
+            toast.error(error.response?.data?.message || "An error occurred"); 
         } finally {
             dispatch(setloading(false));
         }
     };
-useEffect(()=>{
-    if(user){
-        navigate("/");
-    }
-})
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate]);
+
     return (
         <div>
             <Navbar />
-            <div className='flex items-center justify-center max-w-7xl mx-auto'>
-                <form onSubmit={SubmitHandler} className='w-1/2 border border-grey-200 rounded-md p-4 my-10'>
+            <div className='flex items-center justify-center max-w-full px-4 sm:px-8 lg:px-16 my-5'>
+                <form onSubmit={SubmitHandler} className='w-full sm:w-4/5 md:w-1/2 lg:w-1/3 xl:w-1/4 border border-grey-200 rounded-md p-4 my-10'>
                     <h1 className='font-bold text-xl mb-5'>Login</h1>
 
                     <div className='my-2'>
@@ -75,6 +75,7 @@ useEffect(()=>{
                             id="email"
                             onChange={changeEventHandler}
                             placeholder="ganesh@gmail.com"
+                            className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                         />
                     </div>
 
@@ -87,6 +88,7 @@ useEffect(()=>{
                             id="password"
                             onChange={changeEventHandler}
                             placeholder="********"
+                            className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                         />
                     </div>
 
@@ -120,10 +122,9 @@ useEffect(()=>{
                     </div>
 
                     {
-                        loading ? <Button className ="w-full my-4"><Loader2 className='mr-2 h-4 w-4 animate-spin ' />Please wait</Button> : <Button type="submit" className="w-full my-4">Login</Button>
+                        loading ? <Button className="w-full my-4"><Loader2 className='mr-2 h-4 w-4 animate-spin ' />Please wait</Button> : <Button type="submit" className="w-full my-4">Login</Button>
                     }
 
-                    
                     <span className='text-sm'>
                         Don't have an Account? <Link to="/signup" className='text-blue-600'>Sign Up</Link>
                     </span>
