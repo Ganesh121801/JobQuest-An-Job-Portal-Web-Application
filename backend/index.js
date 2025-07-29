@@ -10,7 +10,7 @@ import applicationRoute from "./routes/application.route.js";
 import path from "path"
 import { log } from "console";
 dotenv.config({})
-
+const allowedOrigins = ["https://jobquest-a-job-portal.onrender.com"];
 
 const __dirname = path.resolve();
 
@@ -23,9 +23,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: "https://jobquest-an-job-portal-application.onrender.com",
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
+  origin: allowedOrigins,
+  credentials: true, // If you're using cookies or auth headers
 }));
 
 // app.use(cors(corsOptions))
