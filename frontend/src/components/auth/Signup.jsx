@@ -88,7 +88,7 @@ const Signup = () => {
                             name="fullname"
                             id="fullname"
                             onChange={changeEventHandler}
-                            placeholder="Ganesh More"
+                            placeholder="Enter Your Name"
                             className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                         />
                     </div>
@@ -101,7 +101,7 @@ const Signup = () => {
                             name="email"
                             id="email"
                             onChange={changeEventHandler}
-                            placeholder="ganesh@gmail.com"
+                            placeholder="Enter Your Mail"
                             className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                         />
                     </div>
@@ -114,7 +114,7 @@ const Signup = () => {
                             name="phonenumber"
                             id="phonenumber"
                             onChange={changeEventHandler}
-                            placeholder="9307699110"
+                            placeholder="Mobile No."
                             className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                         />
                     </div>
@@ -161,7 +161,7 @@ const Signup = () => {
                         </RadioGroup>
 
                         <div className='flex items-center gap-2'>
-                            <Label htmlFor="profile">Profile</Label>
+                            <Label htmlFor="profile">Profile Photo </Label>
                             <Input
                                 accept="image/*"
                                 type="file"
