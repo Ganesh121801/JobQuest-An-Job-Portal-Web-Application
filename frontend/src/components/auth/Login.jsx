@@ -74,7 +74,7 @@ const Login = () => {
                             name="email"
                             id="email"
                             onChange={changeEventHandler}
-                            placeholder="ganesh@gmail.com"
+                            placeholder="Enter your Mail"
                             className="w-full focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                         />
                     </div>
